@@ -5047,10 +5047,20 @@
  .service-details-content .two-column .video-inner {
    position: relative;
    width: 100%;
-   padding: 107px 0px 103px 0px;
-   background-size: cover;
-   background-repeat: no-repeat;
-   background-position: center;
+   padding: 0;
+   /* no fake height from padding */
+ }
+
+ /* make the HTML5 video responsive */
+ .service-details-content .two-column .video-inner .product-video {
+   display: block;
+   width: 100%;
+   height: auto;
+   /* keeps aspect ratio */
+   max-height: 100vh;
+   /* never taller than viewport */
+   object-fit: contain;
+   /* whole video visible, no cropping */
  }
 
  .service-details-content .two-column .video-inner:before {
@@ -5060,7 +5070,7 @@
    height: 100%;
    left: 0px;
    top: 0px;
-   opacity: 0.9;
+   opacity: 0;
  }
 
  .service-details-content .two-column .video-inner .video-content a {
