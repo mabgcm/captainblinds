@@ -553,7 +553,7 @@
         document.head.appendChild(script);
     });
 
-    const getEndpoint = () => window.GMAIL_ENDPOINT || '';
+    const getEndpoint = () => window.GMAIL_ENDPOINT || '/api/contact';
 
     function ensurePopupStyles() {
         if (document.getElementById('form-popup-styles')) return;
@@ -621,18 +621,18 @@
         const payload = Object.fromEntries(formData.entries());
         payload.page = window.location.href;
 
-        if (!ENDPOINT) {
-            // No endpoint configured—simulate success so UI flow still works
-            return new Promise((resolve) => setTimeout(resolve, 400));
-        }
+        if (!ENDPOINT) throw new Error('Form endpoint is not configured');
 
         const response = await fetch(ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-        const data = await response.json();
-        if (!data.ok) throw new Error(data.error || 'Submission failed');
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || data.ok === false) {
+            const errMsg = (data && data.error) || response.statusText || 'Submission failed';
+            throw new Error(errMsg);
+        }
         return data;
     }
 
