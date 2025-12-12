@@ -22,6 +22,9 @@ export default async function handler(req, res) {
     });
 
     const text = await r.text();
+    if (!r.ok) {
+      return res.status(r.status || 500).json({ ok: false, error: text || "Upstream error" });
+    }
     return res.status(200).json({ ok: true, upstream: text });
   } catch (e) {
     return res.status(500).json({ ok: false, error: String(e) });
