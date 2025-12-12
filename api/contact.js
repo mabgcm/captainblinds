@@ -22,10 +22,21 @@ export default async function handler(req, res) {
     });
 
     const text = await r.text();
+    let upstreamJson = null;
+    try { upstreamJson = JSON.parse(text); } catch (_) { /* keep text */ }
+
+    // If upstream returned ok:false, surface it
+    if (upstreamJson && upstreamJson.ok === false) {
+      return res
+        .status(r.status || 500)
+        .json({ ok: false, error: upstreamJson.error || text || "Upstream error", upstream: upstreamJson });
+    }
+
     if (!r.ok) {
       return res.status(r.status || 500).json({ ok: false, error: text || "Upstream error" });
     }
-    return res.status(200).json({ ok: true, upstream: text });
+
+    return res.status(200).json({ ok: true, upstream: upstreamJson || text });
   } catch (e) {
     return res.status(500).json({ ok: false, error: String(e) });
   }

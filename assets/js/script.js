@@ -620,6 +620,7 @@
         const formData = new FormData(form);
         const payload = Object.fromEntries(formData.entries());
         payload.page = window.location.href;
+        if (window.FORM_SECRET) payload.secret = window.FORM_SECRET;
 
         if (!ENDPOINT) throw new Error('Form endpoint is not configured');
 
