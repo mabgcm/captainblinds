@@ -2217,6 +2217,16 @@
    transition: all 500ms ease;
  }
 
+ .news-section .news-block-one .inner-box .image-box {
+   aspect-ratio: 1 / 1;
+ }
+
+ .news-section .news-block-one .inner-box .image-box img {
+   height: 100%;
+   object-fit: cover;
+   display: block;
+ }
+
  .news-block-one .inner-box:hover .image-box img {
    opacity: 0.2;
    transform: scale(1.1);
@@ -3812,14 +3822,17 @@
  }
 
  .project-block-one .inner-box .image-box {
-   position: relative;
-   display: block;
-   overflow: hidden;
+   width: 100%;
+   max-width: 300px;
+   aspect-ratio: 1 / 1;
  }
 
  .project-block-one .inner-box .image-box img {
-   width: 100%;
-   transition: all 2500ms ease;
+width: 100%;
+  height: 100%;
+  object-fit: cover;      /* resmi kırpar, bozulma olmaz */
+  object-position: center; /* tam ortadan kırpar */   
+  transition: all 2500ms ease;
  }
 
  .project-block-one .inner-box:hover .image-box img {
@@ -4610,7 +4623,8 @@
  }
 
  .gallery-page-section .project-block-one .inner-box {
-   margin-bottom: 30px;
+   max-width: 300px;
+   margin: 0 auto 30px;
  }
 
  .gallery-page-section .project-block-one .inner-box .image-box:before {
