@@ -621,6 +621,15 @@
         const payload = Object.fromEntries(formData.entries());
         payload.page = window.location.href;
         if (window.FORM_SECRET) payload.secret = window.FORM_SECRET;
+        if (payload.product_name || payload.number_of_windows) {
+            const combined = [];
+            if (payload.product_name) combined.push(`Product Name: ${payload.product_name}`);
+            if (payload.number_of_windows) combined.push(`Number of Windows: ${payload.number_of_windows}`);
+            const combinedText = combined.join('\n');
+            payload.message = payload.message ? `${combinedText}\n${payload.message}` : combinedText;
+            delete payload.product_name;
+            delete payload.number_of_windows;
+        }
 
         if (!ENDPOINT) throw new Error('Form endpoint is not configured');
 
