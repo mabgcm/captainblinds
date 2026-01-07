@@ -5971,7 +5971,7 @@ width: 100%;
    font-size: 15px;
    color: #fff;
    font-weight: 300;
-   border: 1px solid rgba(255, 255, 255, 0.2);
+   border: 1px solid rgba(255, 255, 255, 0.7);
    border-radius: 3px;
    background: transparent;
    padding: 10px 20px;
@@ -5988,7 +5988,7 @@ width: 100%;
 
  .contact-style-two .default-form .form-group input:focus,
  .contact-style-two .default-form .form-group textarea:focus {
-   border: 1px solid rgba(255, 255, 255, 0.5);
+   border: 1px solid #ffffff;
  }
 
  .contact-style-two .default-form .form-group textarea {

@@ -543,7 +543,11 @@ img {
 }
 
 .scroll-top.open {
-  bottom: 100px;
+  bottom: 10px;
+}
+
+.scroll-top.whatsapp-btn.open {
+  bottom: 20px;
 }
 
 .sec-title {

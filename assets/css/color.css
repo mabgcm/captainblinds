@@ -255,6 +255,15 @@
 	background: #f39346;
 }
 
+.scroll-top.whatsapp-btn {
+	background: #25d366;
+	border-radius: 50%;
+}
+
+.scroll-top.whatsapp-btn:hover {
+	background: #128c7e;
+}
+
 .footer-top .footer-social li a:hover {
 	color: #f39346;
 }
