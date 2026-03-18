@@ -5,8 +5,7 @@
     const affiliateConfig = {
         url: 'https://amzn.to/4rBrFXO',
         label: 'Recommended on Amazon',
-        title: 'Shop our recommended window-covering accessories',
-        text: 'Browse a curated Amazon pick. This is an affiliate link, so CaptainBlinds may earn a commission at no extra cost to you.',
+        title: 'Shop zebra, roller, blackout and more from $68.99',
         cta: 'View on Amazon'
     };
 
@@ -700,7 +699,6 @@
                     <div class="affiliate-strip__content">
                         <span class="affiliate-strip__eyebrow">${affiliateConfig.label}</span>
                         <h3>${affiliateConfig.title}</h3>
-                        <p>${affiliateConfig.text}</p>
                     </div>
                     <div class="affiliate-strip__actions">
                         <a href="${affiliateConfig.url}" class="theme-btn-one affiliate-strip__button" target="_blank" rel="nofollow sponsored noopener">
@@ -724,7 +722,15 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        insertAffiliateBanner();
+        const existingAffiliateBar = document.querySelector('.affiliate-strip');
+        if (existingAffiliateBar) {
+            document.body.classList.add('has-affiliate-bar');
+            updateAffiliateOffset(existingAffiliateBar);
+            window.addEventListener('resize', () => updateAffiliateOffset(existingAffiliateBar));
+            window.addEventListener('load', () => updateAffiliateOffset(existingAffiliateBar));
+        } else {
+            insertAffiliateBanner();
+        }
         initForms();
     });
 })();
