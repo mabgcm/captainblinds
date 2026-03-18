@@ -2,6 +2,14 @@
 	
 	"use strict";
 
+    const affiliateConfig = {
+        url: 'https://amzn.to/4rBrFXO',
+        label: 'Recommended on Amazon',
+        title: 'Shop our recommended window-covering accessories',
+        text: 'Browse a curated Amazon pick. This is an affiliate link, so CaptainBlinds may earn a commission at no extra cost to you.',
+        cta: 'View on Amazon'
+    };
+
 	
 	//Update Header Style and Scroll to Top
 	function headerStyle() {
@@ -676,7 +684,49 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', initForms);
+    function updateAffiliateOffset(strip) {
+        if (!strip) return;
+        document.documentElement.style.setProperty('--affiliate-bar-height', `${strip.offsetHeight}px`);
+    }
+
+    function insertAffiliateBanner() {
+        if (!affiliateConfig.url || document.querySelector('.affiliate-strip')) return;
+
+        const strip = document.createElement('section');
+        strip.className = 'affiliate-strip affiliate-strip--top';
+        strip.innerHTML = `
+            <div class="auto-container">
+                <div class="affiliate-strip__inner">
+                    <div class="affiliate-strip__content">
+                        <span class="affiliate-strip__eyebrow">${affiliateConfig.label}</span>
+                        <h3>${affiliateConfig.title}</h3>
+                        <p>${affiliateConfig.text}</p>
+                    </div>
+                    <div class="affiliate-strip__actions">
+                        <a href="${affiliateConfig.url}" class="theme-btn-one affiliate-strip__button" target="_blank" rel="nofollow sponsored noopener">
+                            ${affiliateConfig.cta}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertBefore(strip, document.body.firstChild);
+        document.body.classList.add('has-affiliate-bar');
+        updateAffiliateOffset(strip);
+
+        window.addEventListener('resize', () => updateAffiliateOffset(strip));
+        window.addEventListener('load', () => updateAffiliateOffset(strip));
+        if (window.ResizeObserver) {
+            const resizeObserver = new ResizeObserver(() => updateAffiliateOffset(strip));
+            resizeObserver.observe(strip);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        insertAffiliateBanner();
+        initForms();
+    });
 })();
 
 
